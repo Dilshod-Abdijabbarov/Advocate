@@ -1,0 +1,6 @@
+services:
+  advocate:
+    image: ${DOCKER_REGISTRY-}advocate
+    build:
+      context: .
+      dockerfile: Advocate/Dockerfile
