@@ -16,8 +16,9 @@ namespace Advocate.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> CreateFeedback([FromBody] FeedbackDto feedback)
+        public async Task<bool> CreateOrUpdateFeedback([FromBody] FeedbackDto feedback)
             => await _generalService.CreateOrUpdateFeedbackAsync(feedback);
+
         [HttpGet]
         public async Task<List<FeedbackDto>> GetAllFeedbacks(int first, int row)
             => await _generalService.GetAllFeedbacksAsync(first, row);
