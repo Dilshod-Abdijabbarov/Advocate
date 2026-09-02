@@ -16,16 +16,31 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+       name: "AllowOrigin",
+       builder =>
+       {
+           builder
+          .AllowAnyMethod()
+          .AllowAnyHeader()
+          .AllowCredentials()
+          .WithOrigins(
+          "http://localhost:4300",
+          "http://localhost:4200"
+          );
+       });
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
-app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseCors("AllowOrigin");
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
