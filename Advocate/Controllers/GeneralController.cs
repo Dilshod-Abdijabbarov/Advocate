@@ -20,24 +20,27 @@ namespace Advocate.Controllers
             => await _generalService.CreateOrUpdateFeedbackAsync(feedback);
 
         [HttpGet]
-        public async Task<List<FeedbackDto>> GetAllFeedbacks(int first, int row)
-            => await _generalService.GetAllFeedbacksAsync(first, row);
+        public async Task<ResponeMode<FeedbackDto>> GetAllFeedbacks(int first, int row, bool isAdmin)
+            => await _generalService.GetAllFeedbacksAsync(first, row,isAdmin);
 
 
         [HttpPost]
         public async Task<bool> CreateOrUpdateArticle([FromBody] ArticleDto articleDto)
             => await _generalService.CreateOrUpdateArticleAsync(articleDto);
         [HttpGet]
-        public async Task<List<ArticleDto>> GetAllArticles(int first, int row)
+        public async Task<ResponeMode<ArticleDto>> GetAllArticles(int first, int row)
             => await _generalService.GetAllArticlesAsync(first, row);
 
 
         [HttpPost]
         public async Task<bool> CreateOrUpdateWorkHistory([FromBody] WorkHistoryDto workHistoryDto)
             => await _generalService.CreateOrUpdateWorkHistoryAsync(workHistoryDto);
+
+
         [HttpGet]
-        public async Task<List<WorkHistoryDto>> GetAllWorkHistories(int first, int row)
+        public async Task<ResponeMode<WorkHistoryDto>> GetAllWorkHistories(int first, int row)
             => await _generalService.GetAllWorkHistoriesAsync(first, row);
+
 
         [HttpPost]
         public async Task<IActionResult> UploadImage(IFormFile file, Guid? imageGuid)
@@ -59,5 +62,10 @@ namespace Advocate.Controllers
 
             return NotFound();
         }
+
+
+        [HttpPut]
+        public async Task<bool> ActiveFeedback(int id)
+            => await _generalService.ActiveFeedbackAsync(id);
     }
 }
