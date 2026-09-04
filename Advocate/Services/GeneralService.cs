@@ -147,6 +147,7 @@ public class GeneralService : IGeneralService
                     CaseType = x.CaseType,
                     FirstName = x.FirstName,
                     Discription = x.Discription,
+                    Active = x.Active,
                 }).ToListAsync()
         };
 
