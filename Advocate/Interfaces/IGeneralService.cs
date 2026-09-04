@@ -16,5 +16,6 @@ namespace Advocate.Interfaces
 
         Task<Guid> UploadImageAsync(IFormFile file, Guid? imageGuid);
         Task<bool> ActiveFeedbackAsync(int id, bool isActive);
+        Task<bool> LoginAsync(string username, string password);
     }
 }

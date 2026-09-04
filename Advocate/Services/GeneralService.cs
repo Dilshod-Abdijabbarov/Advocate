@@ -220,4 +220,15 @@ public class GeneralService : IGeneralService
             return true;
         return false;
     }
+
+    public async Task<bool> LoginAsync(string username, string password)
+    {
+        if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            return false;
+
+        if(username == "admin" && password == "admin@#77718")
+            return true;
+
+        return false;
+    }
 }

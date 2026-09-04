@@ -67,5 +67,10 @@ namespace Advocate.Controllers
         [HttpPut]
         public async Task<bool> ActiveFeedback(int id, bool isActive)
             => await _generalService.ActiveFeedbackAsync(id, isActive);
+
+        [HttpPost]
+        public async Task<bool> Login(string username, string password)
+           => await _generalService.LoginAsync(username, password);
+        
     }
 }
