@@ -17,6 +17,5 @@ namespace Advocate.Dtos
         public string Discription { get; set; }
 
         public CaseType CaseType { get; set; }
-        public bool Active { get; set; }
     }
 }

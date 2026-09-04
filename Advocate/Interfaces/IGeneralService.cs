@@ -15,6 +15,6 @@ namespace Advocate.Interfaces
         Task<ResponeMode<WorkHistoryDto>> GetAllWorkHistoriesAsync(int firs, int row);
 
         Task<Guid> UploadImageAsync(IFormFile file, Guid? imageGuid);
-        Task<bool> ActiveFeedbackAsync(int id);
+        Task<bool> ActiveFeedbackAsync(int id, bool isActive);
     }
 }

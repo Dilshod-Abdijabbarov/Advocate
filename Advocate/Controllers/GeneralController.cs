@@ -65,7 +65,7 @@ namespace Advocate.Controllers
 
 
         [HttpPut]
-        public async Task<bool> ActiveFeedback(int id)
-            => await _generalService.ActiveFeedbackAsync(id);
+        public async Task<bool> ActiveFeedback(int id, bool isActive)
+            => await _generalService.ActiveFeedbackAsync(id, isActive);
     }
 }

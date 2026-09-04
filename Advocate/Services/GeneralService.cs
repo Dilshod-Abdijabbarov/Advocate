@@ -60,7 +60,6 @@ public class GeneralService : IGeneralService
         }
 
         feedback.Title = feedbackDto.Title;
-        feedback.Active = feedbackDto.Active;
         feedback.LastName = feedbackDto.LastName;
         feedback.CaseType = feedbackDto.CaseType;
         feedback.FirstName = feedbackDto.FirstName;
@@ -147,7 +146,6 @@ public class GeneralService : IGeneralService
                     CaseType = x.CaseType,
                     FirstName = x.FirstName,
                     Discription = x.Discription,
-                    Active = x.Active,
                 }).ToListAsync()
         };
 
@@ -208,14 +206,14 @@ public class GeneralService : IGeneralService
         return imageGuid ?? Guid.Empty;
     }
 
-    public async Task<bool> ActiveFeedbackAsync(int id)
+    public async Task<bool> ActiveFeedbackAsync(int id, bool isActive)
     {
         var feedback = await _context.Feedbacks.FindAsync(id);
 
         if (feedback == null)
             return false;
 
-        feedback.Active = true;
+        feedback.Active = isActive; 
         _context.Feedbacks.Update(feedback);
         if (await _context.SaveChangesAsync() > 0)
             return true;
