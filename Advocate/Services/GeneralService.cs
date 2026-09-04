@@ -142,6 +142,7 @@ public class GeneralService : IGeneralService
                 {
                     Id = x.Id,
                     Title = x.Title,
+                    Active = x.Active,
                     LastName = x.LastName,
                     CaseType = x.CaseType,
                     FirstName = x.FirstName,
