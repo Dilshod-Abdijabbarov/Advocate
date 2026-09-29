@@ -1,5 +1,7 @@
 ﻿using Advocate.Dtos;
 using Advocate.Interfaces;
+using Advocate.Models.enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,8 +30,8 @@ namespace Advocate.Controllers
         public async Task<bool> CreateOrUpdateArticle([FromBody] ArticleDto articleDto)
             => await _generalService.CreateOrUpdateArticleAsync(articleDto);
         [HttpGet]
-        public async Task<ResponeMode<ArticleDto>> GetAllArticles(int first, int row)
-            => await _generalService.GetAllArticlesAsync(first, row);
+        public async Task<ResponeMode<ArticleDto>> GetAllArticles(int first, int row, CaseType? caseType)
+            => await _generalService.GetAllArticlesAsync(first, row,caseType);
 
 
         [HttpPost]
@@ -63,6 +65,38 @@ namespace Advocate.Controllers
             return NotFound();
         }
 
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetImageFile(Guid id)
+        {
+            var (data,contentType) = await _generalService.GetImageByte(id).ConfigureAwait(false);
+            return File(data, contentType, id.ToString());
+        }
+
+        [HttpPost]
+        [RequestSizeLimit(100 * 1024 * 1024)]
+        public async Task<IActionResult> UploadVideo(Guid? id)
+        {
+            if (!Request.HasFormContentType)
+                return BadRequest();
+            var form = Request.Form;
+
+            foreach (var file in form.Files)
+            {
+                if (file != null && file.Length > 0)
+                {
+                    return Ok(await _generalService.UploadVideo(file,id));
+                }
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<byte[]> GetVideoById(Guid id)
+        {
+            return await _generalService.GetVideoById(id).ConfigureAwait(false);
+        }
 
         [HttpPut]
         public async Task<bool> ActiveFeedback(int id, bool isActive)
