@@ -1,7 +1,7 @@
 ﻿using Advocate.Models.enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Advocate.Dtos;
+namespace Advocate.Models.Dtos;
 
 public class WorkHistoryDto
 {

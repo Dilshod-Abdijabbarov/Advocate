@@ -7,6 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 104857600; // 100 MB
+});
+
 builder.Services.AddDbContext<AdvocateDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 

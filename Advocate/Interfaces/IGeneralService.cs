@@ -1,4 +1,4 @@
-﻿using Advocate.Dtos;
+﻿using Advocate.Models.Dtos;
 using Advocate.Models.Entity;
 using Advocate.Models.enums;
 
@@ -22,5 +22,7 @@ namespace Advocate.Interfaces
 
         Task<Guid> UploadVideo(IFormFile file, Guid? videoGuid);
         Task<byte[]> GetVideoById(Guid id);
+        Task<bool> CreateOrUpdateContentAsync(ContentDto newsVideoDto);
+        Task<ResponeMode<ContentDto>> GetAllContentAsync(int firs, int row,ContentType contentType);
     }
 }

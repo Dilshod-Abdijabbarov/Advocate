@@ -1,4 +1,4 @@
-﻿namespace Advocate.Dtos
+﻿namespace Advocate.Models.Dtos
 {
     public class ResponeMode<T>
     {

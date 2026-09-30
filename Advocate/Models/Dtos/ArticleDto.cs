@@ -1,6 +1,6 @@
 ﻿using Advocate.Models.enums;
 
-namespace Advocate.Dtos;
+namespace Advocate.Models.Dtos;
 
 public class ArticleDto
 {

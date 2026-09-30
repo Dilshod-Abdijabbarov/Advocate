@@ -1,6 +1,6 @@
 ﻿using Advocate.Context;
-using Advocate.Dtos;
 using Advocate.Interfaces;
+using Advocate.Models.Dtos;
 using Advocate.Models.Entity;
 using Advocate.Models.enums;
 using Microsoft.EntityFrameworkCore;
@@ -283,6 +283,60 @@ public class GeneralService : IGeneralService
         
         return Array.Empty<byte>();
     }
+
+    public async Task<bool> CreateOrUpdateContentAsync(ContentDto contentDto)
+    {
+        var content = await _context.Contents.FindAsync(contentDto.Id);
+
+        if (content == null)
+        {
+            content = new Content
+            {
+                CreatedDate = DateTime.UtcNow.AddHours(5)
+            };
+
+            await _context.Contents.AddAsync(content);
+        }
+
+        content.Title = contentDto.Title;
+        content.VideoUrl = contentDto.VideoUrl;
+        content.CaseType = contentDto.CaseType;
+        content.Description = contentDto.Description;
+        content.ImageUrl = contentDto.ImageUrl;
+        content.ContentType = contentDto.ContentType;
+
+        if (await _context.SaveChangesAsync() > 0)
+            return true;
+
+        return false;
+    }
+
+    public async Task<ResponeMode<ContentDto>> GetAllContentAsync(int firs, int row,Models.enums.ContentType contentType)
+    {
+        var query = _context.Contents.Where(x=>x.ContentType == contentType).AsNoTracking();
+
+        var result = new ResponeMode<ContentDto>
+        {
+            TotalItems = await query.CountAsync(),
+            Items = await query
+                .Skip(firs)
+                .Take(row)
+                .Select(x => new ContentDto
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    CaseType = x.CaseType,
+                    VideoUrl = x.VideoUrl,
+                    Description = x.Description,
+                    CreatedDate = x.CreatedDate,
+                    ContentType = x.ContentType,
+                    ImageUrl = x.ImageUrl,
+                }).ToListAsync()
+        };
+
+        return result;
+    }
+
 
     public async Task<bool> ActiveFeedbackAsync(int id, bool isActive)
     {

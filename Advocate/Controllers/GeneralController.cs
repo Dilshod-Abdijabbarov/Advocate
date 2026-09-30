@@ -1,5 +1,5 @@
-﻿using Advocate.Dtos;
-using Advocate.Interfaces;
+﻿using Advocate.Interfaces;
+using Advocate.Models.Dtos;
 using Advocate.Models.enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -105,6 +105,14 @@ namespace Advocate.Controllers
         [HttpPost]
         public async Task<bool> Login(string username, string password)
            => await _generalService.LoginAsync(username, password);
-        
+
+        [HttpPost]
+        public async Task<bool> CreateOrUpdateContent(ContentDto newsVideoDto)
+            => await _generalService.CreateOrUpdateContentAsync(newsVideoDto);
+
+        [HttpGet]
+        public async Task<ResponeMode<ContentDto>> GetAllContents(int firs, int row,ContentType contentType)
+            => await _generalService.GetAllContentAsync(firs, row,contentType);
+
     }
 }

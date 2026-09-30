@@ -68,6 +68,46 @@ namespace Advocate.Migrations
                     b.ToTable("articles");
                 });
 
+            modelBuilder.Entity("Advocate.Models.Entity.Content", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<int?>("CaseType")
+                        .HasColumnType("integer")
+                        .HasColumnName("case_type");
+
+                    b.Property<int>("ContentType")
+                        .HasColumnType("integer")
+                        .HasColumnName("content_type");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_date");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text")
+                        .HasColumnName("image_url");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text")
+                        .HasColumnName("title");
+
+                    b.Property<string>("VideoUrl")
+                        .HasColumnType("text")
+                        .HasColumnName("video_url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("content");
+                });
+
             modelBuilder.Entity("Advocate.Models.Entity.Feedback", b =>
                 {
                     b.Property<int>("Id")

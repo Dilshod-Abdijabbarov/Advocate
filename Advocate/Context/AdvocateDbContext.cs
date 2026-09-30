@@ -10,5 +10,6 @@ namespace Advocate.Context
         public DbSet<Article> Articles { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<WorkHistory> WorkHistories { get; set; }
+        public DbSet<Content> Contents { get; set; }
     }
 }
