@@ -27,6 +27,7 @@ public class GeneralService : IGeneralService
             article = new Article
             {
                 Active = true,
+                DetailedDiscription = "",   
             };
 
             await _context.Articles.AddAsync(article);
